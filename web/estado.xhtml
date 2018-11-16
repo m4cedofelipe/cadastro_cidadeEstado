@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 14px !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+
+            <p:messages/>
+            <p:growl id="growl" showDetail="true" sticky="true" />  
+            
+            <p:panel header="Cadastro de Estado">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Nome:" for="nome"/>
+                    <p:inputText value="#{estadoMB.estado.nome}" id="nome" required="true"
+                                 maxlength="45" requiredMessage="Informe o nome do Estado"/>
+
+                    <p:outputLabel value="Sigla" for="sigla"/>
+                    <p:inputText value="#{estadoMB.estado.sigla}" id="sigla" required="true"
+                                 maxlength="2" requiredMessage="Informe a sigla do Estado "/>
+
+                    <p:commandButton value="Salvar"  action="#{estadoMB.salvar()}" update="@form :formLista"/>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+
+        <h:form id="formLista">
+            <p:dataTable var="item" value="#{estadoMB.lista}" emptyMessage="Sem Registros">
+                <p:column headerText="Id">
+                    #{item.id}
+                </p:column>
+
+                <p:column headerText="Nome" sortBy="#{item.nome}" filterBy="#{item.nome}" filterMatchMode="contains">
+                    #{item.nome}
+                </p:column>
+
+                <p:column headerText="Sigla">
+                    #{item.sigla}
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+
